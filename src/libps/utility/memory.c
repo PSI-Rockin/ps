@@ -12,16 +12,32 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-#include <qapplication.h>
-#include "pstest.h"
+#include <assert.h>
+#include <stdlib.h>
+#include "memory.h"
 
-int main(int argc, char* argv[])
+// Attempts to allocate memory, and if memory allocation is successful returns
+// a pointer to the memory, or calls `abort()` if memory allocation was
+// unsuccessful.
+void* libps_safe_malloc(const size_t size)
 {
-    QApplication qt(argc, argv);
+    void* ptr = malloc(size);
 
-    qt.setApplicationName("libps debugging station");
-    qt.setApplicationVersion("1.0");
+    if (ptr == NULL)
+    {
+        abort();
+        return NULL;
+    }
+    return ptr;
+}
 
-    PSTest pstest;
-    return qt.exec();
+// Calls `free()` and sets `ptr` to `NULL`.
+void libps_safe_free(void* ptr)
+{
+    // Anything passed to this function should never be `NULL` when getting
+    // here in the first place.
+    assert(ptr != NULL);
+
+    free(ptr);
+    ptr = NULL;
 }

@@ -12,24 +12,7 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-#pragma once
+// Implements the first memory card ever released for the PlayStation
+// (SCPH-1020).
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif // __cplusplus
-
-#include <stdint.h>
-
-// Maximum possible length of a result from `libps_disassemble_instruction()`.
-#define LIBPS_DISASM_MAX_LENGTH 30
-
-// Converts `instruction` to MIPS-I assembly language, and stores this result
-// in `result`. `pc` is required so as to compute a proper branch target in the
-// event `instruction` is a branch instruction.
-void libps_disassemble_instruction(const uint32_t instruction,
-                                   const uint32_t pc,
-                                   char* result);
-#ifdef __cplusplus
-}
-#endif // __cplusplus
+#include "scph1020.h"

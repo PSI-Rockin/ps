@@ -22,13 +22,6 @@ extern "C"
 {
 #endif // __cplusplus
 
-// 33.8688 MHz
-#define LIBPS_CPU_CLOCK_RATE 33868800
-
-// This technically isn't accurate as it clobbers the Cache Control register
-// (0xFFFE0130), but for now it works.
-#define LIBPS_CPU_TRANSLATE_ADDRESS(vaddr) ((vaddr) & 0x1FFFFFFF)
-
 // Instruction groups
 #define LIBPS_CPU_OP_GROUP_SPECIAL 0x00
 #define LIBPS_CPU_OP_GROUP_BCOND 0x01
@@ -75,7 +68,9 @@ extern "C"
 #define LIBPS_CPU_OP_JR 0x08
 #define LIBPS_CPU_OP_JALR 0x09
 #define LIBPS_CPU_OP_SYSCALL 0x0C
+#ifdef LIBPS_DEBUG
 #define LIBPS_CPU_OP_BREAK 0x0D
+#endif // LIBPS_DEBUG
 #define LIBPS_CPU_OP_MFHI 0x10
 #define LIBPS_CPU_OP_MTHI 0x11
 #define LIBPS_CPU_OP_MFLO 0x12
@@ -134,14 +129,6 @@ extern "C"
 #define LIBPS_CPU_OP_NCCT 0x3F
 
 // Instruction decoders
-//
-// XXX: Since we only care about gcc and clang, this can probably be turned
-// into a bitfield named `libps_cpu_instruction` but bitfields are tricky
-// regardless of portability and may end up being more annoying to deal with
-// insofar as host system endianness. And how would we handle aliases?
-//
-// At the end of the day, it would be nice to type `instruction.op` vs.
-// `LIBPS_CPU_DECODE_OP(instruction)`, though.
 #define LIBPS_CPU_DECODE_OP(instruction) (instruction >> 26)
 #define LIBPS_CPU_DECODE_RS(instruction) ((instruction >> 21) & 0x1F)
 #define LIBPS_CPU_DECODE_RT(instruction) ((instruction >> 16) & 0x1F)
@@ -158,7 +145,9 @@ extern "C"
 LIBPS_CPU_DECODE_IMMEDIATE(instruction)
 
 // System control co-processor (COP0) registers
+#ifdef LIBPS_DEBUG
 #define LIBPS_CPU_COP0_REG_BADVADDR 8
+#endif // LIBPS_DEBUG
 #define LIBPS_CPU_COP0_REG_SR 12
 #define LIBPS_CPU_COP0_REG_CAUSE 13
 #define LIBPS_CPU_COP0_REG_EPC 14
@@ -167,11 +156,16 @@ LIBPS_CPU_DECODE_IMMEDIATE(instruction)
 #define LIBPS_CPU_SR_IsC (1 << 16)
 
 // Exception codes (ExcCode)
+#define LIBPS_CPU_EXCCODE_Int 0
+#define LIBPS_CPU_EXCCODE_Sys 8
+
+#ifdef LIBPS_DEBUG
 #define LIBPS_CPU_EXCCODE_AdEL 4
 #define LIBPS_CPU_EXCCODE_AdES 5
-#define LIBPS_CPU_EXCCODE_Sys 8
 #define LIBPS_CPU_EXCCODE_Bp 9
+#define LIBPS_CPU_EXCCODE_RI 10
 #define LIBPS_CPU_EXCCODE_Ov 12
+#endif // LIBPS_DEBUG
 
 #ifdef __cplusplus
 }

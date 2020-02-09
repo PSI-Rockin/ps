@@ -12,16 +12,33 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-#include <qapplication.h>
-#include "pstest.h"
+#pragma once
 
-int main(int argc, char* argv[])
+#include <QtWidgets>
+
+class TTYLogger : public QMainWindow
 {
-    QApplication qt(argc, argv);
+    Q_OBJECT
 
-    qt.setApplicationName("libps debugging station");
-    qt.setApplicationVersion("1.0");
+public:
+    TTYLogger(QWidget* parent);
+    ~TTYLogger();
 
-    PSTest pstest;
-    return qt.exec();
-}
+    void append(const QString& data);
+    void clear_log();
+
+private:
+    void on_select_font();
+    void on_save_log();
+
+    QList<QString> breakpoints;
+
+    QMenu* file_menu;
+    QMenu* view_menu;
+
+    QAction* save_log;
+    QAction* clear;
+    QAction* select_font;
+
+    QPlainTextEdit* text_edit;
+};

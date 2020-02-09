@@ -1,4 +1,4 @@
-// Copyright 2020 Michael Rodriguez
+// Copyright 2019 Michael Rodriguez
 //
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
@@ -12,16 +12,15 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-#include <qapplication.h>
-#include "pstest.h"
+#pragma once
 
-int main(int argc, char* argv[])
-{
-    QApplication qt(argc, argv);
+struct libps_system;
 
-    qt.setApplicationName("libps debugging station");
-    qt.setApplicationVersion("1.0");
+struct libps_scph1010
+{ };
 
-    PSTest pstest;
-    return qt.exec();
-}
+// Creates a SCPH-1010.
+struct libps_scph1010* libps_scph1010_create(struct libps_system* ps);
+
+// Destroys the SCPH-1010.
+void libps_scph1010_destroy(struct libps_scph1010* controller);

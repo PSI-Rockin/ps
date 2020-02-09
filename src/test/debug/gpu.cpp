@@ -12,16 +12,13 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-#include <qapplication.h>
-#include "pstest.h"
+#include "gpu.h"
 
-int main(int argc, char* argv[])
-{
-    QApplication qt(argc, argv);
+GPUDebugger::GPUDebugger()
+{ }
 
-    qt.setApplicationName("libps debugging station");
-    qt.setApplicationVersion("1.0");
+GPUDebugger::~GPUDebugger()
+{ }
 
-    PSTest pstest;
-    return qt.exec();
-}
+void GPUDebugger::refresh()
+{ }

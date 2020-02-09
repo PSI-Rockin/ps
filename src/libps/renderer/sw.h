@@ -12,16 +12,24 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-#include <qapplication.h>
-#include "pstest.h"
+#pragma once
 
-int main(int argc, char* argv[])
+#ifdef __cplusplus
+extern "C"
 {
-    QApplication qt(argc, argv);
+#endif // __cplusplus
 
-    qt.setApplicationName("libps debugging station");
-    qt.setApplicationVersion("1.0");
+struct libps_gpu;
+struct libps_gpu_vertex;
 
-    PSTest pstest;
-    return qt.exec();
+void libps_renderer_sw_draw_polygon(struct libps_gpu* gpu,
+                                    const struct libps_gpu_vertex* const v0,
+                                    struct libps_gpu_vertex* const v1,
+                                    struct libps_gpu_vertex* const v2);
+
+void libps_renderer_sw_draw_rect(struct libps_gpu* gpu,
+                                 const struct libps_gpu_vertex* const vertex);
+
+#ifdef __cplusplus
 }
+#endif // __cplusplus

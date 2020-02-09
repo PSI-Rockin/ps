@@ -12,16 +12,30 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-#include <qapplication.h>
-#include "pstest.h"
+#pragma once
 
-int main(int argc, char* argv[])
+#include <array>
+#include <QtWidgets>
+
+class BIOSCalls : public QMainWindow
 {
-    QApplication qt(argc, argv);
+    Q_OBJECT
 
-    qt.setApplicationName("libps debugging station");
-    qt.setApplicationVersion("1.0");
+public:
+    BIOSCalls();
+    ~BIOSCalls();
 
-    PSTest pstest;
-    return qt.exec();
-}
+    void add(const uint32_t pc, const uint32_t fn);
+
+private:
+    unsigned int threshold;
+
+    QWidget* widget;
+
+    std::vector<QTreeWidgetItem*> call_list;
+    QSpinBox* threshold_specifier;
+    QTreeWidget* calls;
+
+    QFormLayout* threshold_layout;
+    QHBoxLayout* widget_layout;
+};
