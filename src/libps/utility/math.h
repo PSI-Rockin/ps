@@ -14,31 +14,13 @@
 
 #pragma once
 
-#include <QtWidgets>
-
-class TTYLogger : public QMainWindow
+#ifdef __cplusplus
+extern "C"
 {
-    Q_OBJECT
+#endif // __cplusplus
 
-public:
-    TTYLogger(QWidget* parent);
-    ~TTYLogger();
+#define LIBPS_BCD_TO_DEC(x) x - 6 * (x >> 4)
 
-    void append(const QString& data);
-    void clear_log();
-
-private:
-    void on_select_font();
-    void on_save_log();
-
-    QList<QString> breakpoints;
-
-    QMenu* file_menu;
-    QMenu* view_menu;
-
-    QAction* save_log;
-    QAction* clear;
-    QAction* select_font;
-
-    QPlainTextEdit* text_edit;
-};
+#ifdef __cplusplus
+}
+#endif // __cplusplus

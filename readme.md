@@ -3,9 +3,9 @@
 This emulator is open source but copyrighted under the ISC license; refer to
 the "license.txt" file for more information.
 
-This emulator is highly work in progress, and as such there's nothing to see
-here yet. Check back later.
+This emulator is highly work in progress, and development is ongoing.
 
-The test program is written for >=Windows 7 only.
+![alt text](https://i.imgur.com/jluWdsw.png "Stage I of BIOS bootup")
+![alt text](https://i.imgur.com/kFwLJgD.png "Stage II of BIOS bootup")
 
 Check out Advent of Code (AoC): https://adventofcode.com/2019

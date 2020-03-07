@@ -12,30 +12,11 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-#pragma once
+#include "cpu.h"
 
-#include <array>
-#include <QtWidgets>
+CPUDebugger::CPUDebugger() : disassembly_group(new QGroupBox(tr("Disassembly"), this))
+{ }
 
-class BIOSCalls : public QMainWindow
-{
-    Q_OBJECT
+CPUDebugger::~CPUDebugger()
+{ }
 
-public:
-    BIOSCalls();
-    ~BIOSCalls();
-
-    void add(const uint32_t pc, const uint32_t fn);
-
-private:
-    unsigned int threshold;
-
-    QWidget* widget;
-
-    std::vector<QTreeWidgetItem*> call_list;
-    QSpinBox* threshold_specifier;
-    QTreeWidget* calls;
-
-    QFormLayout* threshold_layout;
-    QHBoxLayout* widget_layout;
-};
